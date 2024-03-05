@@ -66,6 +66,7 @@ function createCard(data) {
 }
 
 $(document).ready(function () {
+    console.log(decode)
     createCard(decode);
 });
 
