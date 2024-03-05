@@ -22,9 +22,7 @@ function ensureThreeEntries(array) {
 }
 
 function createCard(data) {
-    console.log(data)
     data = JSON.parse(data);
-    console.log(data)
     const cardBody = document.querySelector('.card-body');
     //cardBody.classList.add('poppins-font');
     let topSetlists = Array.isArray(data.theater.topSetlists) ? ensureThreeEntries([...data.theater.topSetlists]) : [data.theater.topSetlists];
@@ -33,7 +31,7 @@ function createCard(data) {
     cardBody.innerHTML = `
         <h5 class="card-title text-center poppins-font">JKT48 Wrapped (${data.name})</h5><br>
         <center>
-            <img src="${encodeURIComponent(data.oshiPic)}" width="50%" class="img-fluid rounded-image"><br>
+            <img src="${data.oshiPic}" width="50%" class="img-fluid rounded-image"><br>
             <p class="poppins-font"><b>Oshi:</b> ${data.oshi}</p>
         </center><br>
         <div class="row">
