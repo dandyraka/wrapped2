@@ -29,35 +29,35 @@ function createCard(data) {
     let topVCMembers = Array.isArray(data.videoCall.topMembers) ? ensureThreeEntries([...data.videoCall.topMembers]) : [data.videoCall.topMembers];
     let imgProxy = "https://api.codetabs.com/v1/proxy/?quest=";
     cardBody.innerHTML = `
-        <h5 class="card-title text-center poppins-font">JKT48 Wrapped (${data.name})</h5><br>
+        <h5 class="card-title text-center poppins-font">JKT48 Wrapped ${data.year} (${data.data.name})</h5><br>
         <center>
-            <img src="${data.oshiPic}" width="50%" class="img-fluid rounded-image"><br>
-            <p class="poppins-font"><b>Oshi:</b> ${data.oshi}</p>
+            <img src="${data.data.oshiPic}" width="50%" class="img-fluid rounded-image"><br>
+            <p class="poppins-font"><b>Oshi:</b> ${data.data.oshi}</p>
         </center><br>
         <div class="row">
             <div class="col-md-6">
                 <b>• Theater</b><br>
-                ${(data.theater.topSetlists) ? `
+                ${(data.data.theater.topSetlists) ? `
                 <b>Top Setlists:</b><br>${Array.isArray(topSetlists) ? topSetlists.join('<br>') : topSetlists}<br><br>
                 <div class="mobile-spacing">
-                    <b>🏆 Winrate:</b> ${data.theater.winrate.rate}<br>(<b>Menang:</b> ${data.theater.winrate.detail.menang}x, <b>Kalah:</b> ${data.theater.winrate.detail.kalah}x)
+                    <b>🏆 Winrate:</b> ${data.data.theater.winrate.rate}<br>(<b>Menang:</b> ${data.data.theater.winrate.detail.menang}x, <b>Kalah:</b> ${data.data.theater.winrate.detail.kalah}x)
                 </div>
-                ` : data.theater}
+                ` : data.data.theater}
             </div>
             <div class="col-md-6">
                 <b>• Video Call</b><br>
-                ${(data.videoCall.totalTickets) ? `
+                ${(data.data.videoCall.totalTickets) ? `
                 <b>Top Video Call Members:</b><br>${Array.isArray(topVCMembers) ? topVCMembers.join('<br>') : topVCMembers}<br><br>
-                <b>Total Video Call:</b><br>${(data.videoCall.totalTickets) ? `${data.videoCall.totalTickets} tiket` : data.videoCall} 
-                ` : data.videoCall}
+                <b>Total Video Call:</b><br>${(data.data.videoCall.totalTickets) ? `${data.data.videoCall.totalTickets} tiket` : data.data.videoCall} 
+                ` : data.data.videoCall}
             </div>
         </div><br>
         <div class="poppins-font">
             <b>• Events</b><br>
-            ${(data.events.lastEvents) ? `
-            <b>Last Events:</b><br>${Array.isArray(data.events.lastEvents) ? data.events.lastEvents.map(event => `- ${event}`).join('<br>') : data.events}<br><br>
-            ` : data.events+"<br><br>"}
-            <b>Total Top-Up:</b><br>${data.topUp}<br><br>
+            ${(data.data.events.lastEvents) ? `
+            <b>Last Events:</b><br>${Array.isArray(data.data.events.lastEvents) ? data.data.events.lastEvents.map(event => `- ${event}`).join('<br>') : data.data.events}<br><br>
+            ` : data.data.events+"<br><br>"}
+            <b>Total Top-Up:</b><br>${data.data.topUp}<br><br>
             <center><small><b>#JKT48Wrapped made with ❤️ by JKT48 Live</b></small></center>
         </div>
     `;
