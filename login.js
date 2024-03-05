@@ -22,6 +22,7 @@ function ensureThreeEntries(array) {
 }
 
 function createCard(data) {
+    console.log(data)
     const cardBody = document.querySelector('.card-body');
     //cardBody.classList.add('poppins-font');
     let topSetlists = Array.isArray(data.theater.topSetlists) ? ensureThreeEntries([...data.theater.topSetlists]) : [data.theater.topSetlists];
