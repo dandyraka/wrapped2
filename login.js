@@ -25,8 +25,8 @@ function createCard(data) {
     data = JSON.parse(data);
     const cardBody = document.querySelector('.card-body');
     //cardBody.classList.add('poppins-font');
-    let topSetlists = Array.isArray(data.theater.topSetlists) ? ensureThreeEntries([...data.theater.topSetlists]) : [data.theater.topSetlists];
-    let topVCMembers = Array.isArray(data.videoCall.topMembers) ? ensureThreeEntries([...data.videoCall.topMembers]) : [data.videoCall.topMembers];
+    let topSetlists = Array.isArray(data.data.theater.topSetlists) ? ensureThreeEntries([...data.data.theater.topSetlists]) : [data.data.theater.topSetlists];
+    let topVCMembers = Array.isArray(data.data.videoCall.topMembers) ? ensureThreeEntries([...data.data.videoCall.topMembers]) : [data.data.videoCall.topMembers];
     let imgProxy = "https://api.codetabs.com/v1/proxy/?quest=";
     cardBody.innerHTML = `
         <h5 class="card-title text-center poppins-font">JKT48 Wrapped ${data.year} (${data.data.name})</h5><br>
