@@ -1,62 +1,6 @@
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const loading = document.getElementById('loading');
-    loading.classList.remove('hidden');
-
-    fetch('https://jkt48.jnckmedia.com/wrap/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password
-        }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        loading.classList.add('hidden');
-        if(data.success) {
-            alert('Login successful!');
-    
-            // Sembunyikan form login
-            const loginForm = document.getElementById('loginForm');
-            loginForm.remove(); // Menghapus form login
-
-            // Ambil container untuk tombol
-            const buttonContainer = document.getElementById('buttonContainer');
-            buttonContainer.innerHTML = ''; // Bersihkan isi sebelumnya jika ada
-    
-            // Tambahkan header untuk tombol tahun
-            const header = document.createElement('h2');
-            header.classList.add('vanta-font');
-            header.textContent = 'JKT48 Wrapped';
-            buttonContainer.appendChild(header);
-
-            const subHeader = document.createElement('p');
-            subHeader.classList.add('vanta-font');
-            subHeader.textContent = 'Pilih tahun';
-            buttonContainer.appendChild(subHeader);
-
-            // Append buttons for each year
-            data.data.forEach(item => {
-                const btn = document.createElement('button');
-                btn.innerText = item.year;
-                btn.classList.add('btn', 'btn-primary', 'mr-2', 'vanta-font'); // Bootstrap classes
-                btn.onclick = () => fetchData(item.cookie, item.year);
-                buttonContainer.appendChild(btn);
-            });
-        } else {
-            alert('Login failed: ' + data.message);
-        }
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-});
+let url = window.location.pathname;
+let data = url.replace("/", "");
+let decode = atob(decodeURIComponent(data));
 
 function toggleTopUpVisibility() {
     const topUpElement = document.getElementById('top-up-value');
@@ -77,14 +21,14 @@ function ensureThreeEntries(array) {
     return array;
 }
 
-function createCard(data, year) {
+function createCard(data) {
     const cardBody = document.querySelector('.card-body');
     //cardBody.classList.add('poppins-font');
     let topSetlists = Array.isArray(data.theater.topSetlists) ? ensureThreeEntries([...data.theater.topSetlists]) : [data.theater.topSetlists];
     let topVCMembers = Array.isArray(data.videoCall.topMembers) ? ensureThreeEntries([...data.videoCall.topMembers]) : [data.videoCall.topMembers];
     let imgProxy = "https://api.codetabs.com/v1/proxy/?quest=";
     cardBody.innerHTML = `
-        <h5 class="card-title text-center poppins-font">JKT48 Wrapped ${year} (${data.name})</h5><br>
+        <h5 class="card-title text-center poppins-font">JKT48 Wrapped (${data.name})</h5><br>
         <center>
             <img src="${imgProxy}${encodeURIComponent(data.oshiPic)}" width="50%" class="img-fluid rounded-image"><br>
             <p class="poppins-font"><b>Oshi:</b> ${data.oshi}</p>
@@ -118,34 +62,9 @@ function createCard(data, year) {
     `;
 }
 
-function fetchData(cookie, year) {
-    const loading = document.getElementById('loading');
-    loading.classList.remove('hidden');
-
-    fetch('https://jkt48.jnckmedia.com/wrap/getData', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            cookie: cookie,
-            year: year
-        }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        loading.classList.add('hidden');
-        if(data.success) {
-            createCard(data.data, year); // Kirim year ke createCard
-            setTimeout(() => createCanvasFromCard(), 100);
-        } else {
-            alert('Gagal mengambil data: ' + data.message);
-        }
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-}
+$(document).ready(function () {
+    createCard(decode);
+});
 
 function createCanvasFromCard() {
     const cardBody = document.querySelector('.card-body');
