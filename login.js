@@ -1,5 +1,5 @@
 let url = window.location.pathname;
-let data = url.replace("/", "");
+let data = url.split("/")[1];
 let decode = decodeURIComponent(data);
 
 function toggleTopUpVisibility() {
