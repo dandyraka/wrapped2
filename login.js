@@ -1,5 +1,4 @@
 let url = window.location.pathname;
-console.log(url)
 let data = url.split("/")[2];
 let decode = decodeURIComponent(data);
 
@@ -34,7 +33,7 @@ function createCard(data) {
     cardBody.innerHTML = `
         <h5 class="card-title text-center poppins-font">JKT48 Wrapped (${data.name})</h5><br>
         <center>
-            <img src="${imgProxy}${encodeURIComponent(data.oshiPic)}" width="50%" class="img-fluid rounded-image"><br>
+            <img src="${encodeURIComponent(data.oshiPic)}" width="50%" class="img-fluid rounded-image"><br>
             <p class="poppins-font"><b>Oshi:</b> ${data.oshi}</p>
         </center><br>
         <div class="row">
