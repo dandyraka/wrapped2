@@ -1,6 +1,6 @@
 let url = window.location.pathname;
 let data = url.replace("/", "");
-let decode = atob(decodeURIComponent(data));
+let decode = decodeURIComponent(data);
 
 function toggleTopUpVisibility() {
     const topUpElement = document.getElementById('top-up-value');
